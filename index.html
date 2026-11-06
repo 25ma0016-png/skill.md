@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indic Stop Words · Hindi | Vijaylaxmi Yadav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Hind:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f7fc;--card:#ffffffd9;--ink:#1d2347;--mut:#5d6483;--line:#dfe4f2;--gold:#d99a2b;--teal:#2a8f8a;--rose:#c9566f;--ind:#4a4fb0;
+--serif:'Cormorant Garamond',Georgia,serif;--sans:'Hind',system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(900px 500px at 85% 8%,#e9ecff,transparent 60%),radial-gradient(800px 500px at 5% 40%,#fff4dc,transparent 60%),var(--bg);color:var(--ink);font:400 17px/1.7 var(--sans)}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.1;margin:0}
+a{color:var(--ind)}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--rose),var(--ind));z-index:99}
+#halo{position:fixed;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,#ffd98a55,transparent 65%);transition:opacity .4s}
+nav{position:sticky;top:0;z-index:50;display:flex;gap:4px;overflow-x:auto;padding:10px 18px;background:#f5f7fce6;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);scrollbar-width:none}
+nav a{white-space:nowrap;text-decoration:none;color:var(--mut);font-size:14px;padding:5px 12px;border-radius:99px;transition:.25s}
+nav a:hover,nav a.on{background:var(--ink);color:#fff}
+/* LANTERN HERO */
+.lantern{position:relative;min-height:100vh;background:#0e0b1c;overflow:hidden;--x:50%;--y:45%;cursor:none;isolation:isolate}
+.lantern canvas{position:absolute;inset:0;width:100%;height:100%}
+.lantern .layer{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 7vw;color:#ffe9b0}
+.lantern .layer h1{font-size:clamp(40px,8vw,104px);font-style:italic;max-width:12ch}
+.lantern .layer p{max-width:52ch;margin:22px 0 0;font-size:19px}
+.lantern .ghost{opacity:.07}
+.lantern .lit{--m:radial-gradient(circle 230px at var(--x) var(--y),#000 0,#000a 45%,transparent 100%);-webkit-mask-image:var(--m);mask-image:var(--m);text-shadow:0 0 22px #ffbf4a99}
+.lantern::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(circle 300px at var(--x) var(--y),#ffc85a40,#ff8a5c14 55%,transparent 100%)}
+.lantern.on .ghost{display:none}.lantern.on .lit{-webkit-mask-image:none;mask-image:none}.lantern.on{cursor:auto}
+#toggle{position:absolute;bottom:26px;right:26px;z-index:5;cursor:pointer;background:#ffe9b022;color:#ffe9b0;border:1px solid #ffe9b055;border-radius:99px;padding:8px 18px;font:500 14px var(--sans);backdrop-filter:blur(6px)}
+.hint{position:absolute;bottom:30px;left:0;right:0;text-align:center;color:#ffe9b088;font-size:14px;z-index:4;pointer-events:none}
+/* SECTIONS */
+main{position:relative;z-index:1}
+section{max-width:1040px;margin:0 auto;padding:88px 22px 10px}
+.num{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#ffe9b0;font:700 20px var(--serif);margin-bottom:14px;box-shadow:0 0 0 6px #d99a2b26}
+h2{font-size:clamp(34px,5vw,54px)}
+.rule{height:2px;width:90px;margin:16px 0 26px;background:linear-gradient(90deg,var(--gold),transparent)}
+p{margin:0 0 14px;max-width:70ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;backdrop-filter:blur(6px);box-shadow:0 18px 44px -26px #2b3170}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.rv{opacity:0;transform:translateY(26px) scale(.985);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+.step{position:relative;padding-left:22px}.step:before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--c,var(--gold))}
+.step b{font-family:var(--serif);font-size:23px;display:block}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0}
+.stat{text-align:center;padding:20px 10px}.stat strong{display:block;font:700 48px/1 var(--serif);color:var(--ind)}
+.stat span{color:var(--mut);font-size:14px}
+/* LIST */
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 14px;font:500 14px var(--sans);cursor:pointer;transition:.25s;color:var(--ink)}
+.chip:hover{transform:translateY(-2px)}.chip.on{background:var(--c,var(--ink));color:#fff;border-color:transparent}
+#q{width:100%;max-width:340px;padding:11px 18px;border-radius:99px;border:1px solid var(--line);font:400 16px var(--sans);margin-bottom:16px;background:#fff}
+#words{display:flex;flex-wrap:wrap;gap:9px}
+.w{padding:5px 14px;border-radius:10px;font:500 16px var(--sans);background:#fff;border:1px solid var(--line);border-left:4px solid var(--c);cursor:pointer;transition:transform .2s,box-shadow .2s;animation:pop .5s both}
+.w:hover{transform:translateY(-4px) rotate(-1.5deg);box-shadow:0 10px 20px -10px var(--c)}
+@keyframes pop{from{opacity:0;transform:scale(.7)}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,90px);background:var(--ink);color:#fff;padding:8px 18px;border-radius:99px;transition:.4s;z-index:90;font-size:14px}#toast.s{transform:translate(-50%,0)}
+/* CHARTS */
+.bar{display:grid;grid-template-columns:minmax(120px,250px) 1fr 34px;gap:12px;align-items:center;margin:9px 0;font-size:15px}
+.bar i{display:block;height:16px;border-radius:99px;background:var(--c);width:0;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar em{font-style:normal;font-weight:600}
+.donut{display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:center}
+.donut svg{width:260px;height:260px;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:34;transition:stroke-dasharray 1.6s cubic-bezier(.2,.7,.2,1),opacity .3s;cursor:pointer}
+.leg{font-size:14px}.leg div{display:flex;gap:8px;align-items:center}.leg s{width:12px;height:12px;border-radius:3px;background:var(--c)}
+.hist{display:flex;align-items:flex-end;gap:7px;height:190px;border-bottom:2px solid var(--line)}
+.hist div{flex:1;background:linear-gradient(var(--teal),#8fd3cc);border-radius:8px 8px 0 0;height:0;transition:height 1.3s cubic-bezier(.2,.7,.2,1);position:relative}
+.hist div b{position:absolute;top:-22px;width:100%;text-align:center;font-size:13px}
+.axis{display:flex;gap:7px;font-size:13px;color:var(--mut)}.axis span{flex:1;text-align:center}
+.heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px}
+.heat div{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font:700 22px var(--serif);background:rgba(74,79,176,var(--a));color:var(--t);position:relative;transition:.25s}
+.heat div:hover{transform:scale(1.15) rotate(3deg);z-index:2}.heat small{position:absolute;bottom:3px;font:500 11px var(--sans)}
+/* DEMO */
+#in{width:100%;min-height:84px;border-radius:14px;border:1px solid var(--line);padding:14px;font:400 17px var(--sans);resize:vertical;background:#fff}
+#out{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+#out span{padding:3px 12px;border-radius:8px;animation:pop .4s both}
+.k{background:#d6f2ee;color:#17625d;font-weight:600}.x{background:#f2e1e6;color:#a25061;text-decoration:line-through;opacity:.8}
+ul.clean{padding-left:20px;max-width:70ch}ul.clean li{margin:8px 0}
+.refs li{margin:12px 0;padding-left:8px}
+.about{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.photo{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;font:700 64px var(--serif);color:#ffe9b0;background:conic-gradient(from 200deg,var(--ind),var(--rose),var(--gold),var(--ind));position:relative}
+.photo:after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--ink);z-index:0}.photo b{position:relative;z-index:1}
+footer{text-align:center;color:var(--mut);padding:70px 20px 50px;font-size:14px}
+@media(max-width:640px){.about{grid-template-columns:1fr;justify-items:center;text-align:center}.bar{grid-template-columns:1fr 34px}.bar span{grid-column:1/-1}.lantern{cursor:auto}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style></head><body>
+<div id="bar"></div><div id="halo"></div><div id="toast">Copied</div>
+
+<header class="lantern" id="hero">
+  <canvas id="dust"></canvas>
+  <div class="layer lit" id="litText">
+    <h1>Move the light across the dark to read.</h1>
+    <p>Hindi stop words: the small words that carry grammar, and almost never carry meaning. A project in Natural Language Processing by Vijaylaxmi Yadav, IIT (ISM) Dhanbad.</p>
+  </div>
+  <div class="hint">Move your cursor or finger. The words only show where the light falls.</div>
+  <button id="toggle">Lights on</button>
+</header>
+
+<nav id="nav"></nav>
+<main>
+<section id="abstract"><span class="num">1</span><h2>Abstract</h2><div class="rule"></div>
+<p>Stop words are high-frequency function words such as pronouns, postpositions and auxiliaries that are routinely removed before text is analysed. Hindi is written by hundreds of millions of people, yet it is also typed daily in Latin script on phones, social media and chat. This project assembles a curated list of <b class="cnt">0</b> unique Romanized Hindi stop words, organises them into ten linguistically motivated categories, and analyses how they are distributed by category, word length and initial letter. The list is shipped as a reusable Python module (<code>hindi_stopwords.py</code>) with a small removal function and presented on this interactive page.</p>
+<div class="stats" id="stats"></div></section>
+
+<section id="objective"><span class="num">2</span><h2>Objective</h2><div class="rule"></div>
+<ul class="clean"><li>Compile a clean, de-duplicated Hindi stop-word list for text pre-processing.</li><li>Classify every word by its grammatical function.</li><li>Quantify the structure of the list with simple visual analysis.</li><li>Package the result as a documented Python file and a public web page.</li></ul></section>
+
+<section id="question"><span class="num">3</span><h2>Research Question</h2><div class="rule"></div>
+<div class="card"><h3 style="font-size:30px">Which grammatical classes make up Hindi stop words, and how are they distributed in a Romanized word list used for NLP pre-processing?</h3></div>
+<p style="margin-top:16px">Sub-questions: Which category is the largest? How long are the words? Does Romanization produce spelling variants (<i>nahi / nahin</i>, <i>mai / main</i>)?</p></section>
+
+<section id="method"><span class="num">4</span><h2>Methodology</h2><div class="rule"></div>
+<div class="grid">
+<div class="card step rv" style="--c:var(--gold)"><b>Collect</b>A seed list of about 200 common Hindi function words was written in Latin script.</div>
+<div class="card step rv" style="--c:var(--rose)"><b>Clean</b>Duplicates (<i>liye, yahi, waise</i>) were removed while keeping order, leaving unique entries.</div>
+<div class="card step rv" style="--c:var(--ind)"><b>Categorise</b>Each word was assigned to exactly one grammatical category; a script check confirms full coverage.</div>
+<div class="card step rv" style="--c:var(--teal)"><b>Analyse</b>Counts, length distribution and initial letters were computed directly from the list.</div>
+<div class="card step rv" style="--c:var(--gold)"><b>Publish</b>Delivered as <code>hindi_stopwords.py</code>, pushed to GitHub, and shown on this page.</div></div></section>
+
+<section id="list"><span class="num">5</span><h2>List</h2><div class="rule"></div>
+<p>Filter by category or search. Click any word to copy it.</p>
+<input id="q" placeholder="Search a word…" aria-label="Search"><div class="tools" id="chips"></div><div id="words"></div></section>
+
+<section id="analysis"><span class="num">6</span><h2>Analysis</h2><div class="rule"></div>
+<div class="card rv"><h3>Breakdown by category</h3><div id="bars" style="margin-top:12px"></div></div><br>
+<div class="card rv"><h3 style="margin-bottom:16px">Share of the list</h3><div class="donut"><svg viewBox="0 0 120 120" id="donut"></svg><div class="leg" id="leg"></div></div></div><br>
+<div class="grid"><div class="card rv"><h3 style="margin-bottom:30px">Word length (characters)</h3><div class="hist" id="hist"></div><div class="axis" id="axis"></div></div>
+<div class="card rv"><h3 style="margin-bottom:16px">Most common initial letters</h3><div class="heat" id="heat"></div></div></div><br>
+<div class="card rv"><h3>Try it: remove stop words</h3><p style="color:var(--mut)">Type a Romanized Hindi sentence. Removed words are struck through.</p>
+<textarea id="in">Main kal bazaar gaya aur mere liye ek kitab kharidi lekin woh bahut mehngi thi</textarea><div id="out"></div></div></section>
+
+<section id="discussion"><span class="num">7</span><h2>Discussion</h2><div class="rule"></div>
+<p id="disc"></p>
+<p>Romanization brings spelling variation: <i>nahi/nahin</i>, <i>mai/main</i>, <i>hum/ham</i>, <i>poora/pura</i> all appear, so a practical list must include variants. Some words are ambiguous: <i>par</i> can be a postposition or a conjunction, and <i>kam</i> can be a quantifier or a noun, which is why each word was given its dominant function.</p></section>
+
+<section id="limits"><span class="num">8</span><h2>Limitation</h2><div class="rule"></div>
+<ul class="clean"><li>The list is Romanized; it does not include Devanagari forms.</li><li>It is a sample list and was not derived from a frequency study of a large corpus.</li><li>Each word has one category, though some are multi-functional.</li><li>Removal is word-based, so multi-word entries such as <i>har ek</i> need phrase handling.</li></ul></section>
+
+<section id="future"><span class="num">9</span><h2>Future Work</h2><div class="rule"></div>
+<ul class="clean"><li>Add the Devanagari list and a transliteration map between the two scripts.</li><li>Derive frequencies from a Hindi corpus to rank and prune words.</li><li>Extend to other Indic languages such as Bengali, Marathi and Tamil.</li><li>Test the effect on classification and retrieval tasks.</li></ul></section>
+
+<section id="refs"><span class="num">10</span><h2>References</h2><div class="rule"></div>
+<ol class="refs">
+<li>Fox, C. (1989). A stop list for general text. <i>ACM SIGIR Forum</i>, 24(1–2), 19–21.</li>
+<li>Manning, C. D., Raghavan, P., &amp; Schütze, H. (2008). <i>Introduction to Information Retrieval</i>. Cambridge University Press.</li>
+<li>Jurafsky, D., &amp; Martin, J. H. <i>Speech and Language Processing</i> (3rd ed. draft). Stanford University.</li>
+<li>Bird, S., Klein, E., &amp; Loper, E. (2009). <i>Natural Language Processing with Python</i>. O’Reilly Media.</li>
+<li>Kakwani, D., et al. (2020). IndicNLPSuite: Monolingual corpora, evaluation benchmarks and pre-trained multilingual language models for Indian languages. <i>Findings of EMNLP 2020</i>.</li></ol></section>
+
+<section id="about"><span class="num">11</span><h2>About</h2><div class="rule"></div>
+<div class="card about rv"><div class="photo"><b>VY</b></div><div><h3 style="font-size:32px">Vijaylaxmi Yadav</h3><p>Vijaylaxmi Yadav is currently pursuing an M.A. in Digital Humanities and Social Sciences at the Indian Institute of Technology (Indian School of Mines), Dhanbad (2025–2027).</p><p style="color:var(--mut);margin:0">Department of Humanities and Social Sciences · Monsoon Semester 2026</p></div></div></section>
+</main>
+<footer>Indic Stop Words · Hindi · Vijaylaxmi Yadav · IIT (ISM) Dhanbad</footer>
+
+<script>
+const D={"Pronouns (Personal & Demonstrative)": ["main", "mai", "hum", "ham", "tum", "aap", "mujhe", "mujh", "hume", "hame", "tujhe", "use", "usse", "unhe", "unko", "inko", "ye", "yah", "yahi", "yeh", "woh", "vo", "ve", "is", "us", "in", "un", "wahi"], "Possessive & Emphatic Forms": ["mera", "meri", "mere", "tera", "teri", "tere", "hamara", "hamari", "hamare", "tumhara", "tumhari", "tumhare", "aapka", "aapki", "aapke", "iska", "uska", "inke", "unke", "iski", "uski", "apna", "apni", "apne", "khud", "swayam"], "Interrogatives & Relatives": ["kab", "kaun", "kya", "kyun", "kahan", "kaise", "kaisi", "kaisa", "kitna", "kitni", "kitne", "kisi", "kis", "kisne", "kiska", "kiske", "jiska", "jiski", "jiske", "jinko", "jise", "jahan", "jab", "tab"], "Conjunctions & Connectives": ["aur", "ya", "lekin", "magar", "isliye", "kyunki", "chunki", "agar", "yadi", "jabki", "warna", "varnah", "athva", "tatha", "evam", "jaisehi", "phirbhi", "matlab", "arthat", "yani", "wagairah", "aadi", "etc", "jaisa ki"], "Postpositions & Case Markers": ["ki", "ka", "ke", "ko", "se", "mein", "me", "par", "saath", "bina", "liye", "dwara", "tak", "bhar", "tarah"], "Auxiliaries & Light Verbs": ["hai", "hain", "tha", "thi", "the", "ho", "hoga", "hogi", "honge", "hona", "hoti", "hote", "hua", "hui", "hue", "kar", "karke", "karta", "karti", "karte", "karna", "kiya", "kiye", "gaya", "gayi", "gaye", "ja", "jata", "jati", "jate", "jana", "raha", "rahi", "rahe"], "Adverbs (Time, Place & Manner)": ["yahan", "wahan", "idhar", "udhar", "ab", "tabhi", "kabhi", "hamesha", "aksar", "phir", "fir", "dobara", "pehle", "baad", "aage", "peeche", "upar", "neeche", "andar", "bahar", "jaisa", "jaise", "waise", "waisa", "waisi", "aisa", "aisi", "aese", "sirf", "keval", "bas"], "Quantifiers & Numerals": ["koi", "kuch", "kuchh", "sab", "sabhi", "sabkuch", "har", "bahut", "zyada", "kam", "thoda", "thodi", "thode", "pura", "poora", "poori", "pure", "sabse", "adhik", "kamse", "itna", "itni", "itne", "ek", "do", "har ek"], "Particles, Negation & Emphasis": ["bhi", "to", "toh", "hi", "na", "nahi", "nahin", "mat", "haan", "ji", "zaroor", "shayad", "lagbhag"], "Classifiers & Suffixes": ["wala", "wali", "wale"]};const cats=Object.keys(D);const all=[].concat(...cats.map(c=>D[c].map(w=>[w,c])));const N=all.length;
+const PAL=['#4a4fb0','#c9566f','#2a8f8a','#d99a2b','#7a5bb5','#3b82c4','#d1703a','#5a9a3c','#b04a8f','#7b8296'];
+const col=c=>PAL[cats.indexOf(c)];const $=s=>document.querySelector(s);
+/* nav */
+const secs=[['abstract','Abstract'],['objective','Objective'],['question','Research Question'],['method','Methodology'],['list','List'],['analysis','Analysis'],['discussion','Discussion'],['limits','Limitation'],['future','Future Work'],['refs','References'],['about','About']];
+$('#nav').innerHTML=secs.map(s=>`<a href="#${s[0]}">${s[1]}</a>`).join('');
+/* lantern */
+const hero=$('#hero'),lit=$('#litText');const g=lit.cloneNode(true);g.classList.remove('lit');g.classList.add('ghost');g.removeAttribute('id');g.setAttribute('aria-hidden','true');lit.before(g);
+let tx=innerWidth/2,ty=innerHeight*.45,cx=tx,cy=ty,last=0;
+hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();tx=e.clientX-r.left;ty=e.clientY-r.top;last=performance.now()});
+$('#toggle').onclick=e=>{hero.classList.toggle('on');e.target.textContent=hero.classList.contains('on')?'Lights off':'Lights on'};
+const cv=$('#dust'),cx2=cv.getContext('2d');let P=[];
+function rs(){cv.width=hero.clientWidth;cv.height=hero.clientHeight;P=Array.from({length:90},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*2+.5,v:Math.random()*.3+.1,p:Math.random()*6}))}rs();addEventListener('resize',rs);
+function tick(t){if(t-last>3500){tx=cv.width/2+Math.cos(t/2100)*cv.width*.32;ty=cv.height/2+Math.sin(t/1500)*cv.height*.22}
+cx+=(tx-cx)*.09;cy+=(ty-cy)*.09;hero.style.setProperty('--x',cx+'px');hero.style.setProperty('--y',cy+'px');
+cx2.clearRect(0,0,cv.width,cv.height);for(const p of P){p.y-=p.v;p.x+=Math.sin(t/900+p.p)*.3;if(p.y<-5){p.y=cv.height+5;p.x=Math.random()*cv.width}
+const d=Math.hypot(p.x-cx,p.y-cy),a=Math.max(0,1-d/260)*.9+.05;cx2.fillStyle=`rgba(255,214,120,${a})`;cx2.beginPath();cx2.arc(p.x,p.y,p.r*(1+a),0,7);cx2.fill()}
+requestAnimationFrame(tick)}requestAnimationFrame(tick);
+/* halo + progress */
+const halo=$('#halo');addEventListener('pointermove',e=>{halo.style.left=e.clientX+'px';halo.style.top=e.clientY+'px'});
+addEventListener('scroll',()=>{$('#bar').style.width=scrollY/(document.body.scrollHeight-innerHeight)*100+'%';
+let cur='';secs.forEach(s=>{if($('#'+s[0]).getBoundingClientRect().top<200)cur=s[0]});document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.hash==='#'+cur))});
+/* stats */
+const lens=all.map(a=>a[0].replace(/ /g,'').length),avg=(lens.reduce((a,b)=>a+b,0)/N).toFixed(1);
+$('#stats').innerHTML=[[N,'unique stop words'],[cats.length,'categories'],[avg,'avg. letters per word'],[Math.max(...lens),'longest word (letters)']].map(s=>`<div class="card stat rv"><strong data-n="${s[0]}">0</strong><span>${s[1]}</span></div>`).join('');
+const count=el=>{const n=parseFloat(el.dataset.n||el.textContent),f=String(n).includes('.');let s=0;const st=performance.now();(function f2(t){const k=Math.min(1,(t-st)/1400);el.textContent=f?(n*k).toFixed(1):Math.round(n*k);if(k<1)requestAnimationFrame(f2)})(st)};
+document.querySelectorAll('.cnt').forEach(e=>e.dataset.n=N);
+/* list */
+let cat='All',term='';
+$('#chips').innerHTML=['All',...cats].map(c=>`<button class="chip${c=='All'?' on':''}" data-c="${c}" style="--c:${c=='All'?'#1d2347':col(c)}">${c} <small>${c=='All'?N:D[c].length}</small></button>`).join('');
+function draw(){$('#words').innerHTML=all.filter(a=>(cat=='All'||a[1]==cat)&&a[0].includes(term)).map((a,i)=>`<span class="w" style="--c:${col(a[1])};animation-delay:${Math.min(i*12,500)}ms" title="${a[1]}">${a[0]}</span>`).join('')}
+$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));draw()};
+$('#q').oninput=e=>{term=e.target.value.toLowerCase().trim();draw()};
+$('#words').onclick=e=>{if(e.target.classList.contains('w')){navigator.clipboard&&navigator.clipboard.writeText(e.target.textContent);const t=$('#toast');t.textContent='Copied “'+e.target.textContent+'”';t.classList.add('s');setTimeout(()=>t.classList.remove('s'),1400)}};draw();
+/* charts */
+const mx=Math.max(...cats.map(c=>D[c].length));
+$('#bars').innerHTML=cats.slice().sort((a,b)=>D[b].length-D[a].length).map(c=>`<div class="bar" style="--c:${col(c)}"><span>${c}</span><div><i data-w="${D[c].length/mx*100}"></i></div><em>${D[c].length}</em></div>`).join('');
+const R=45,C=2*Math.PI*R;let off=0;$('#donut').innerHTML=cats.map(c=>{const l=D[c].length/N*C,s=`<circle cx="60" cy="60" r="${R}" stroke="${col(c)}" stroke-dasharray="0 ${C}" data-d="${l} ${C-l}" stroke-dashoffset="${-off}"><title>${c}: ${D[c].length}</title></circle>`;off+=l;return s}).join('');
+$('#leg').innerHTML=cats.map(c=>`<div style="--c:${col(c)}"><s></s>${c} · ${(D[c].length/N*100).toFixed(0)}%</div>`).join('');
+const lc={};lens.forEach(l=>lc[l]=(lc[l]||0)+1);const ks=Object.keys(lc).map(Number).sort((a,b)=>a-b),mh=Math.max(...Object.values(lc));
+$('#hist').innerHTML=ks.map(k=>`<div data-h="${lc[k]/mh*100}"><b>${lc[k]}</b></div>`).join('');$('#axis').innerHTML=ks.map(k=>`<span>${k}</span>`).join('');
+const fl={};all.forEach(a=>{const l=a[0][0];fl[l]=(fl[l]||0)+1});const top=Object.entries(fl).sort((a,b)=>b[1]-a[1]).slice(0,12),fm=top[0][1];
+$('#heat').innerHTML=top.map(([l,n])=>{const a=(.15+.85*n/fm).toFixed(2);return `<div style="--a:${a};--t:${a>.5?'#fff':'#1d2347'}">${l}<small>${n}</small></div>`}).join('');
+const big=cats.slice().sort((a,b)=>D[b].length-D[a].length);
+$('#disc').innerHTML=`The largest group is <b>${big[0]}</b> (${D[big[0]].length} words), followed by <b>${big[1]}</b> (${D[big[1]].length}) and <b>${big[2]}</b> (${D[big[2]].length}). Together the three cover ${((D[big[0]].length+D[big[1]].length+D[big[2]].length)/N*100).toFixed(0)}% of the list. This shows that Hindi stop words are mostly grammar-bearing material: verb auxiliaries, case markers and pronoun forms, with very few content-like items. The average word is only ${avg} letters long, so removing them shortens text noticeably without touching the nouns and verbs that carry meaning.`;
+/* demo */
+const S=new Set(all.map(a=>a[0]));
+function demo(){$('#out').innerHTML=$('#in').value.split(/\s+/).filter(Boolean).map(w=>`<span class="${S.has(w.toLowerCase().replace(/[.,!?;]/g,''))?'x':'k'}">${w}</span>`).join('')}$('#in').oninput=demo;demo();
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('in');io.unobserve(t);
+t.querySelectorAll('[data-w]').forEach(i=>i.style.width=i.dataset.w+'%');t.querySelectorAll('[data-h]').forEach(i=>i.style.height=i.dataset.h+'%');
+t.querySelectorAll('[data-d]').forEach(c=>c.setAttribute('stroke-dasharray',c.dataset.d));t.querySelectorAll('strong[data-n]').forEach(count)}),{threshold:.2});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));document.querySelectorAll('.cnt').forEach(e=>{const o=new IntersectionObserver(x=>{if(x[0].isIntersecting){count(e);o.disconnect()}});o.observe(e)});
+</script></body></html>
